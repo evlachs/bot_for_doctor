@@ -59,12 +59,12 @@ async def set_post_description(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Form.photo, content_types='photo')
 async def set_post_photo(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['photo'] = [InputMediaPhoto(p.file_id) for p in message.photo]
+        data['photo'] = message.photo
         print(message)
-    await bot.send_message(message.from_user.id, MESSAGES['confirm_post'])
-    await bot.send_media_group(
+    await bot.send_message(message.from_user.id, MESSAGES['confirm_post'], reply_markup=make_a_post_keyboard)
+    await bot.send_photo(
         message.from_user.id,
         data['photo'],
-        # f"{data['title']}{data['description']}",
-        # reply_markup=confirm_post_keyboard
+        f"{data['title']}{data['description']}",
+        reply_markup=confirm_post_keyboard
     )
