@@ -60,7 +60,6 @@ async def set_post_description(message: types.Message, state: FSMContext):
 async def set_post_photo(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['photo'] = message.photo
-        print(message)
     await bot.send_message(message.from_user.id, MESSAGES['confirm_post'], reply_markup=make_a_post_keyboard)
     await bot.send_photo(
         message.from_user.id,
