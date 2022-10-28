@@ -59,7 +59,7 @@ async def set_post_description(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Form.photo, content_types='photo')
 async def set_post_photo(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['photo'] = message.photo[-1]
+        data['photo'] = message.photo[-1].file_id
     await bot.send_message(message.from_user.id, MESSAGES['confirm_post'])
     await bot.send_photo(
         message.from_user.id,
