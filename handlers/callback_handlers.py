@@ -6,14 +6,25 @@ from loader import dp, bot
 from states import Form
 from messages import MESSAGES
 from conf import CHANNEL
-from keyboards import confirm_post_keyboard, make_a_post_keyboard, post_keyboard
+from keyboards import confirm_post_keyboard, make_a_post_keyboard, post_keyboard, post_types_keyboard, go_to_quest_keyboard
+
+
+@dp.callback_query_handler(lambda c: c.data in ['links_type', 'quest_type'])
+async def cancel_photo(callback_query: types.CallbackQuery, state: FSMContext):
+    await bot.answer_callback_query(callback_query.id)
+    async with state.proxy() as data:
+        if callback_query.data == 'links_type':
+            data['keyboard'] = post_keyboard
+        else:
+            data['keyboard'] = go_to_quest_keyboard
+    await Form.title.set()
+    await bot.send_message(callback_query.from_user.id, MESSAGES['set_title'])
 
 
 @dp.callback_query_handler(lambda c: c.data == 'post')
 async def make_a_post_callback(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
-    await Form.title.set()
-    await bot.send_message(callback_query.from_user.id, MESSAGES['set_title'])
+    await bot.send_message(callback_query.from_user.id, MESSAGES['set_post_type'], reply_markup=post_types_keyboard)
 
 
 @dp.callback_query_handler(lambda c: c.data == 'cancel_photo', state=Form.photo)
@@ -52,8 +63,8 @@ async def confirm_post(callback_query: types.CallbackQuery, state: FSMContext):
         photo = data['photo']
         msg = f"{data['title']}{data['description']}"
     if photo:
-        await bot.send_photo(CHANNEL, photo, msg, reply_markup=post_keyboard)
+        await bot.send_photo(CHANNEL, photo, msg, reply_markup=data['keyboard'])
     else:
-        await bot.send_message(CHANNEL, msg, reply_markup=post_keyboard)
+        await bot.send_message(CHANNEL, msg, reply_markup=data['keyboard'])
     await state.finish()
     await bot.send_message(callback_query.from_user.id, MESSAGES['post_confirmed'], reply_markup=make_a_post_keyboard)
