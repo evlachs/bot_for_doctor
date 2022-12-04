@@ -17,7 +17,7 @@ smart_compensation_button = types.InlineKeyboardButton('Умная компен�
 genetic_button = types.InlineKeyboardButton('Генетическая панель сахарного диабета', url=URLS['genetic'])
 course_button = types.InlineKeyboardButton('Курс по основам и правилам компенсации', url=URLS['course'])
 constructor_button = types.InlineKeyboardButton('Диабетический конструктор питания (ДКП)', url=URLS['constructor'])
-closed_club_button = types.InlineKeyboardButton('Закрытый клуб', url=URLS['closed_club'])
+closed_club_button = types.InlineKeyboardButton('Закрытый клуб', url=URLS['close_club'])
 culinary_library_button = types.InlineKeyboardButton('Первая кулинарная библиотека', url=URLS['culinary_library'])
 mail_button = types.InlineKeyboardButton('Почтовая рассылка Стоп диабет', url=URLS['mail'])
 thermofutlar_button = types.InlineKeyboardButton('Термо-футляр для инсулиновых ручек', url=URLS['thermofutlar'])
