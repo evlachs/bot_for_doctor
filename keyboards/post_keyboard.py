@@ -26,4 +26,4 @@ news_button = types.InlineKeyboardButton('Новостной канал Все �
 
 post_keyboard = types.InlineKeyboardMarkup()
 post_keyboard.add(smart_compensation_button).add(genetic_button).add(course_button).add(constructor_button)\
-    .add(closed_club_button).add(culinary_library_button).add(thermofutlar_button)
+    .add(closed_club_button).add(culinary_library_button).add(mail_button).add(thermofutlar_button).add(news_button)
