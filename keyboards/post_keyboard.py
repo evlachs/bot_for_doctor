@@ -12,7 +12,7 @@ URLS = {
     'news_channel': 'https://t.me/diabetesNews2022',
 }
 
-cd
+
 smart_compensation_button = types.InlineKeyboardButton('Умная компенсация', url=URLS['smart_compensation'])
 genetic_button = types.InlineKeyboardButton('Генетическая панель сахарного диабета', url=URLS['genetic'])
 course_button = types.InlineKeyboardButton('Курс по основам и правилам компенсации', url=URLS['course'])
